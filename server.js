@@ -16,24 +16,24 @@ const app = express();
 app.use(logConsole);
 app.use(express.static('public'));
 
-app.get('/api/notes', (req, res) => {
+app.get('/api/notes', (req, res, next) => {
   const searchTerm = req.query.searchTerm;
-  if (searchTerm) {
-    let answer = data.filter(el => {
-      return el.title.includes(searchTerm);
-    });
-    res.json(answer);
-  } else {
-    res.json(data);
-  }
+  notes.filter(searchTerm, (err, list) => {
+    if (err) {
+      return next(err); 
+    }
+    res.json(list);
+  });
 });
 
-app.get('/api/notes/:id', (req, res) => {
+app.get('/api/notes/:id', (req, res, next) => {
   const id = req.params.id;
-  const answer = data.find(el => {
-    return el.id === Number(id);
+  notes.find(id, (err, item) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(item);
   });
-  res.json(answer);
 });
 
 app.use(function (req, res, next) {
