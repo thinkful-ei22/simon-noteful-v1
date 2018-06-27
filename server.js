@@ -5,17 +5,19 @@
 console.log('Hello Noteful!');
 
 const express = require('express');
+const morgan = require('morgan');
 
 const data = require('./db/notes');
 const simDB = require('./db/simDB');  
 const notes = simDB.initialize(data); 
 
-const logConsole = require('./middleware/logger');
+// const logConsole = require('./middleware/logger');
 const {PORT} = require('./config');
 
 const app = express();
 
-app.use(logConsole);
+app.use(morgan('common'));
+// app.use(logConsole);
 
 app.use(express.static('public'));
 
