@@ -1,6 +1,6 @@
 'use strict';
 
-// Load array of notes
+// Load array of note
 
 console.log('Hello Noteful!');
 
