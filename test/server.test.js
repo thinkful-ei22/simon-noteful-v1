@@ -189,17 +189,15 @@ describe('GET /api/notes/:id', function () {
     });
     it('should return an error when missing "title" field', function () {
       const updateItem = {
-        'foo': 'bar'
+        'title': 'foo',
+        'content': 'bar'
       };
       return chai.request(app)
-        .put('/api/notes/1005')
+        .put('/api/notes/weeeeeeeeee')
         .send(updateItem)
         .catch(err => err.response)
         .then(res => {
-          expect(res).to.have.status(400);
-          expect(res).to.be.json;
-          expect(res.body).to.be.a('object');
-          expect(res.body.message).to.equal('Missing `title` in request body');
+          expect(res).to.have.status(404);
         });
     });
 
